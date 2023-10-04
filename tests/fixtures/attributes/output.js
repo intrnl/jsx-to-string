@@ -182,3 +182,4 @@ _.html('<input data-foo=">">');
 _.html('<input data-foo=&#38;>');
 _.html('<input data-foo=&#34;>');
 _.html('<input data-foo="\'">');
+_.html('<input value= readonly>');

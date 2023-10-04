@@ -85,3 +85,5 @@
 <input data-foo='"' />;
 
 <input data-foo="'" />;
+
+<input value="" readonly />;
