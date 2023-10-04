@@ -290,6 +290,8 @@ export default declare<PluginOptions>((_api, options) => {
 					expr(t.callExpression(t.memberExpression(importIdent!, t.identifier('attrsDynamic')), args));
 				}
 			} else if (hasStatics) {
+				let needsSpacing = true;
+
 				for (let idx = 0, len = attributes.length; idx < len; idx++) {
 					const attr = attributes[idx] as NodePath<t.JSXAttribute>;
 					const attrNode = attr.node;
@@ -323,8 +325,56 @@ export default declare<PluginOptions>((_api, options) => {
 					}
 
 					if (evaluation && evaluation.confident) {
-						const val = evaluation.value;
-						const result = name !== 'style' ? runtime.attr(name, val) : runtime.style(val);
+						let value = evaluation.value;
+
+						if (name === 'style' && typeof value === 'object' && value) {
+							let tmp = '';
+							for (const prop in value) {
+								const val = value[prop];
+
+								tmp && (tmp += ';');
+								tmp += prop + ':' + val;
+							}
+
+							value = tmp;
+						}
+
+						let result = `${needsSpacing ? ' ' : ''}${name}`;
+						let needsQuoting = false;
+
+						if (value === true /* || value === '' */) {
+							needsSpacing = true;
+						} else {
+							value = runtime.escape('' + value, true);
+
+							for (let idx = 0, len = value.length; idx < len; idx++) {
+								let char = value[idx];
+
+								if (
+									char === "'" ||
+									char === '"' ||
+									char === ' ' ||
+									char === '\t' ||
+									char === '\n' ||
+									char === '\r' ||
+									char === '`' ||
+									char === '=' ||
+									char === '<' ||
+									char === '>'
+								) {
+									needsQuoting = true;
+									break;
+								}
+							}
+
+							if (needsQuoting) {
+								needsSpacing = false;
+								result += '="' + value + '"';
+							} else {
+								needsSpacing = true;
+								result += '=' + value;
+							}
+						}
 
 						text(result);
 					} else if (name === 'style') {

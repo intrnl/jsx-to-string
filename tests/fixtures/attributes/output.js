@@ -1,8 +1,8 @@
 import * as _ from '@intrnl/jsx-to-string/runtime';
-_.html('<input value="" readonly disabled="">');
-_.html('<div draggable="true"></div>');
+_.html('<input value= readonly disabled=>');
+_.html('<div draggable=true></div>');
 _.html('<div data-foo="&#34; \' < > &#38;"></div>');
-_.html('<div><label for="name"></label><input id="name"></div>');
+_.html('<div><label for=name></label><input id=name></div>');
 _.html(
 	'<div><label' + _.attr('for', id + 'name') + '></label><input' + _.attr('id', id + 'name') + '></div>',
 );
@@ -10,7 +10,7 @@ _.html('<input' + _.attr('value', text) + '>');
 _.html('<div style="background-color: green"></div>');
 _.html('<div style="background-color: blue"></div>');
 _.html('<div' + _.style(style) + '></div>');
-_.html('<div style="background-color:red;"></div>');
+_.html('<div style=background-color:red></div>');
 _.html(
 	'<div' +
 		_.style({
@@ -167,3 +167,18 @@ _.html(
 		}) +
 		'>',
 );
+_.html('<input data-foo=foo data-bar=bar data-baz=baz>');
+_.html('<input data-foo=" foo"data-bar=bar data-baz=baz>');
+_.html('<input data-foo=foo data-bar=" bar"data-baz=baz>');
+_.html('<input data-foo=foo data-bar=bar data-baz=" baz">');
+_.html('<input data-foo=" foo"data-bar=" bar"data-baz=baz>');
+_.html('<input data-foo=" foo"data-bar=bar data-baz=" baz">');
+_.html('<input data-foo=foo data-bar=" bar"data-baz=" baz">');
+_.html('<input data-foo=" foo"data-bar=" bar"data-baz=" baz">');
+_.html('<input data-foo=foo' + _.attr('data-bar', bar) + ' data-baz=baz>');
+_.html('<input data-foo="foo "' + _.attr('data-bar', bar) + 'data-baz=baz>');
+_.html('<input data-foo="<">');
+_.html('<input data-foo=">">');
+_.html('<input data-foo=&#38;>');
+_.html('<input data-foo=&#34;>');
+_.html('<input data-foo="\'">');

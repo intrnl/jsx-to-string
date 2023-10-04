@@ -55,3 +55,33 @@
 <input {...{ value: '' }} />;
 
 <input {...{ value: '' }} {...{ disabled: true }} />;
+
+<input data-foo="foo" data-bar="bar" data-baz="baz" />;
+
+<input data-foo=" foo" data-bar="bar" data-baz="baz" />;
+
+<input data-foo="foo" data-bar=" bar" data-baz="baz" />;
+
+<input data-foo="foo" data-bar="bar" data-baz=" baz" />;
+
+<input data-foo=" foo" data-bar=" bar" data-baz="baz" />;
+
+<input data-foo=" foo" data-bar="bar" data-baz=" baz" />;
+
+<input data-foo="foo" data-bar=" bar" data-baz=" baz" />;
+
+<input data-foo=" foo" data-bar=" bar" data-baz=" baz" />;
+
+<input data-foo="foo" data-bar={bar} data-baz="baz" />;
+
+<input data-foo="foo " data-bar={bar} data-baz="baz" />;
+
+<input data-foo="<" />;
+
+<input data-foo=">" />;
+
+<input data-foo="&" />;
+
+<input data-foo='"' />;
+
+<input data-foo="'" />;

@@ -1,9 +1,9 @@
 import * as _ from '@intrnl/jsx-to-string/runtime';
 const Card = ({ title, children }) => {
 	return _.html(
-		'<div class="card"><div class="card__title">' +
+		'<div class=card><div class=card__title>' +
 			_.render(title) +
-			'</div><div class="card__body">' +
+			'</div><div class=card__body>' +
 			_.render(children) +
 			'</div></div>',
 	);
