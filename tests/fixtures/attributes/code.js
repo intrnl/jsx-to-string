@@ -87,3 +87,5 @@
 <input data-foo="'" />;
 
 <input value="" readonly />;
+
+<input style={{ color: undefined, background: 'red', font: 'inherit' }} />;

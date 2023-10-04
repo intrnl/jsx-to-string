@@ -328,15 +328,17 @@ export default declare<PluginOptions>((_api, options) => {
 						let value = evaluation.value;
 
 						if (name === 'style' && typeof value === 'object' && value) {
-							let tmp = '';
-							for (const prop in value) {
-								const val = value[prop];
+							let str = '';
+							let tmp: any;
 
-								tmp && (tmp += ';');
-								tmp += prop + ':' + val;
+							for (const prop in value) {
+								if ((tmp = value[prop])) {
+									str && (str += ';');
+									str += prop + ':' + tmp;
+								}
 							}
 
-							value = tmp;
+							value = str;
 						}
 
 						let result = `${needsSpacing ? ' ' : ''}${name}`;

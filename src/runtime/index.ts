@@ -69,13 +69,15 @@ export const attr = (name: string, value: any) => {
 
 export const style = (value: string | Record<string, string>) => {
 	let result = '';
+	let tmp: any;
 
 	if (typeof value === 'string') {
 		result = value;
 	} else {
 		for (const prop in value) {
-			const val = value[prop];
-			result += prop + ':' + val + ';';
+			if ((tmp = value[prop])) {
+				result += prop + ':' + tmp + ';';
+			}
 		}
 	}
 
