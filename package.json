@@ -1,0 +1,53 @@
+{
+	"type": "module",
+	"name": "@intrnl/jsx-to-string",
+	"description": "Babel plugin for transforming JSX to HTML string equivalent",
+	"version": "0.3.0",
+	"author": "intrnl",
+	"license": "MIT",
+	"repository": {
+		"url": "https://codeberg.org/intrnl/jsx-to-string"
+	},
+	"files": [
+		"dist/"
+	],
+	"exports": {
+		"./runtime": {
+			"import": "./dist/runtime/index.js",
+			"types": "./dist/runtime/index.d.ts"
+		},
+		"./jsx-runtime": {
+			"import": "./dist/jsx-runtime.js",
+			"types": "./dist/jsx-runtime.d.ts"
+		},
+		"./jsx-dev-runtime": {
+			"import": "./dist/jsx-runtime.js",
+			"types": "./dist/jsx-runtime.d.ts"
+		},
+		"./babel": {
+			"import": "./dist/babel/index.js",
+			"types": "./dist/babel/index.d.ts"
+		}
+	},
+	"scripts": {
+		"fmt": "prettier --cache --write .",
+		"build": "tsc",
+		"prepublishOnly": "pnpm run build"
+	},
+	"dependencies": {
+		"@babel/helper-plugin-utils": "^7.22.5",
+		"@babel/plugin-syntax-jsx": "^7.22.5",
+		"@babel/types": "^7.22.19",
+		"csstype": "^3.1.2"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.22.20",
+		"@types/babel__core": "^7.20.2",
+		"@types/babel__helper-plugin-utils": "^7.10.1",
+		"@types/node": "^20.8.0",
+		"babel-plugin-tester": "^11.0.4",
+		"bun-types": "1.0.4-canary.20231003T140149",
+		"prettier": "^3.0.3",
+		"typescript": "^5.2.2"
+	}
+}

@@ -1,0 +1,10 @@
+import * as _ from '@intrnl/jsx-to-string/runtime';
+_.html('Hello world');
+_.html('<div>Hello world</div>');
+_.html('Hello <span>World</span>');
+_.html('<span>Hello</span> world');
+_.html(_.render(foo));
+_.html(_.render(foo) + ' ' + _.render(bar));
+_.html(_.render(foo) + ' text ' + _.render(bar));
+_.html('text ' + _.render(foo));
+_.html(_.render(bar) + ' text');
