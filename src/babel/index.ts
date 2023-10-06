@@ -417,7 +417,7 @@ export default declare<PluginOptions>((_api, options) => {
 			const node = child.node;
 			const type = node.type;
 
-			let expression: NodePath<t.JSXElement | t.JSXFragment | t.Expression>;
+			let expression: NodePath<t.Expression>;
 
 			if (type === 'JSXText') {
 				const str = cleanJSXText(node.value);
@@ -460,6 +460,59 @@ export default declare<PluginOptions>((_api, options) => {
 				renderChildren($expression);
 
 				continue;
+			} else if (exprtype === 'ConditionalExpression') {
+				const $expression = expression as NodePath<t.ConditionalExpression>;
+
+				const consequent = $expression.get('consequent');
+				const alternate = $expression.get('alternate');
+
+				const consType = consequent.type;
+				const altType = alternate.type;
+
+				let alteredConsequent: t.Expression | undefined;
+				let alteredAlternate: t.Expression | undefined;
+
+				if (consType === 'JSXElement' || consType === 'JSXFragment') {
+					const $consequent = consequent as NodePath<t.JSXElement | t.JSXFragment>;
+					alteredConsequent = handleJSXTransform($consequent);
+				} else {
+					const evaluation = consequent.evaluate();
+
+					if (evaluation.confident) {
+						const val = evaluation.value;
+						const str = runtime.render(val);
+
+						alteredConsequent = t.stringLiteral(str);
+					}
+				}
+
+				if (altType === 'JSXElement' || altType === 'JSXFragment') {
+					const $alternate = alternate as NodePath<t.JSXElement | t.JSXFragment>;
+					alteredAlternate = handleJSXTransform($alternate);
+				} else {
+					const evaluation = alternate.evaluate();
+
+					if (evaluation.confident) {
+						const val = evaluation.value;
+						const str = runtime.render(val);
+
+						alteredAlternate = t.stringLiteral(str);
+					}
+				}
+
+				if (alteredConsequent || alteredAlternate) {
+					expr(
+						t.conditionalExpression(
+							$expression.node.test,
+							alteredConsequent ||
+								t.callExpression(t.memberExpression(importIdent!, t.identifier('render')), [consequent.node]),
+							alteredAlternate ||
+								t.callExpression(t.memberExpression(importIdent!, t.identifier('render')), [alternate.node]),
+						),
+					);
+
+					continue;
+				}
 			}
 
 			const evaluation = expression.evaluate();
@@ -476,7 +529,7 @@ export default declare<PluginOptions>((_api, options) => {
 		}
 	};
 
-	const handleJSXVisit = (path: NodePath<t.JSXElement | t.JSXFragment>) => {
+	const handleJSXTransform = (path: NodePath<t.JSXElement | t.JSXFragment>) => {
 		const before = nodes;
 
 		nodes = [t.stringLiteral('')];
@@ -491,9 +544,14 @@ export default declare<PluginOptions>((_api, options) => {
 		}
 
 		const expr = buildNodes();
-		path.replaceWith(t.callExpression(t.memberExpression(importIdent!, t.identifier('html')), [expr]));
-
 		nodes = before;
+
+		return expr;
+	};
+
+	const handleJSXVisit = (path: NodePath<t.JSXElement | t.JSXFragment>) => {
+		const expr = handleJSXTransform(path);
+		path.replaceWith(t.callExpression(t.memberExpression(importIdent!, t.identifier('html')), [expr]));
 	};
 
 	return {
