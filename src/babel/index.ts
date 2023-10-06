@@ -587,7 +587,7 @@ export default declare<PluginOptions>((_api, options) => {
 
 	return {
 		name: '@intrnl/babel-plugin-transform-jsx-to-html',
-		inherits: jsx,
+		inherits: jsx?.default ?? jsx,
 		visitor: {
 			Program: {
 				enter(path) {
