@@ -417,16 +417,14 @@ export default declare<PluginOptions>((_api, options) => {
 			const node = child.node;
 			const type = node.type;
 
+			let expression: NodePath<t.JSXElement | t.JSXFragment | t.Expression>;
+
 			if (type === 'JSXText') {
 				const str = cleanJSXText(node.value);
 				const escaped = runtime.render(str);
 				text(escaped);
-			} else if (type === 'JSXElement') {
-				const $child = child as NodePath<t.JSXElement>;
-				renderElement($child);
-			} else if (type === 'JSXFragment') {
-				const $child = child as NodePath<t.JSXFragment>;
-				renderChildren($child);
+
+				continue;
 			} else if (type === 'JSXSpreadChild') {
 				const $child = child as NodePath<t.JSXSpreadChild>;
 
@@ -435,28 +433,46 @@ export default declare<PluginOptions>((_api, options) => {
 						t.arrayExpression([t.spreadElement($child.node.expression)]),
 					]),
 				);
+
+				continue;
 			} else if (type === 'JSXExpressionContainer') {
 				const $child = child as NodePath<t.JSXExpressionContainer>;
+				const _expr = $child.get('expression');
 
-				const expression = $child.get('expression');
-				if (expression.type === 'JSXEmptyExpression') {
+				if (_expr.type === 'JSXEmptyExpression') {
 					continue;
 				}
 
-				const $expression = expression as NodePath<t.Expression>;
-				const evaluation = $expression.evaluate();
-
-				if (evaluation.confident) {
-					const val = evaluation.value;
-					const str = runtime.render(val);
-
-					text(str);
-				} else {
-					expr(
-						t.callExpression(t.memberExpression(importIdent!, t.identifier('render')), [$expression.node]),
-					);
-				}
+				expression = _expr as NodePath<t.Expression>;
+			} else {
+				expression = child as NodePath<t.JSXElement | t.JSXFragment>;
 			}
+
+			const exprtype = expression.type;
+
+			if (exprtype === 'JSXElement') {
+				const $expression = expression as NodePath<t.JSXElement>;
+				renderElement($expression);
+
+				continue;
+			} else if (exprtype === 'JSXFragment') {
+				const $expression = expression as NodePath<t.JSXFragment>;
+				renderChildren($expression);
+
+				continue;
+			}
+
+			const evaluation = expression.evaluate();
+
+			if (evaluation.confident) {
+				const val = evaluation.value;
+				const str = runtime.render(val);
+
+				text(str);
+				continue;
+			}
+
+			expr(t.callExpression(t.memberExpression(importIdent!, t.identifier('render')), [expression.node]));
 		}
 	};
 
