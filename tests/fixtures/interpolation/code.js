@@ -48,9 +48,19 @@
 
 <div>{bool ? expr : <>world</>}</div>;
 
-<div>{bool === true && <div>hello</div>}</div>;
+<div>{bool ? <span>hello {name}</span> : <strong>world</strong>}</div>;
 
-<div>{!bool && <div>hello</div>}</div>;
+<div>{bool ? <>hello {name}</> : <>world</>}</div>;
+
+<div>{condition && expr}</div>;
+
+<div>{condition && <span>hello</span>}</div>;
+
+<div>{condition === true && <span>hello {name}</span>}</div>;
+
+<div>{condition === true && <div>hello</div>}</div>;
+
+<div>{!condition && <div>hello</div>}</div>;
 
 {
 	const node = <span>hello</span>;
