@@ -37,14 +37,13 @@
 	"dependencies": {
 		"@babel/helper-plugin-utils": "^7.22.5",
 		"@babel/plugin-syntax-jsx": "^7.22.5",
-		"@babel/types": "^7.22.19",
+		"@babel/types": "^7.23.0",
 		"csstype": "^3.1.2"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.22.20",
+		"@babel/core": "^7.23.0",
 		"@types/babel__core": "^7.20.2",
 		"@types/babel__helper-plugin-utils": "^7.10.1",
-		"@types/node": "^20.8.0",
 		"babel-plugin-tester": "^11.0.4",
 		"bun-types": "1.0.4-canary.20231003T140149",
 		"prettier": "^3.0.3",
