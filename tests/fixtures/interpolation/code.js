@@ -24,6 +24,30 @@
 
 <div>{bool ? <>hello</> : <>world</>}</div>;
 
+<div>{bool ? 'hello' : null}</div>;
+
+<div>{bool ? <span>hello</span> : null}</div>;
+
+<div>{bool ? <>hello</> : null}</div>;
+
+<div>{bool ? null : 'world'}</div>;
+
+<div>{bool ? null : <strong>world</strong>}</div>;
+
+<div>{bool ? null : <>world</>}</div>;
+
+<div>{bool ? 'hello' : expr}</div>;
+
+<div>{bool ? <span>hello</span> : expr}</div>;
+
+<div>{bool ? <>hello</> : expr}</div>;
+
+<div>{bool ? expr : 'world'}</div>;
+
+<div>{bool ? expr : <strong>world</strong>}</div>;
+
+<div>{bool ? expr : <>world</>}</div>;
+
 <div>{bool === true && <div>hello</div>}</div>;
 
 <div>{!bool && <div>hello</div>}</div>;
