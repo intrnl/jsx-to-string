@@ -35,10 +35,10 @@ _.html('<div>' + (bool ? _.render(expr) : 'world') + '</div>');
 _.html('<div>' + (bool ? '<span>hello ' + _.render(name) + '</span>' : '<strong>world</strong>') + '</div>');
 _.html('<div>' + (bool ? 'hello ' + _.render(name) : 'world') + '</div>');
 _.html('<div>' + _.render(condition && expr) + '</div>');
-_.html('<div>' + (condition && '<span>hello</span>') + '</div>');
-_.html('<div>' + (condition === true && '<span>hello ' + _.render(name) + '</span>') + '</div>');
-_.html('<div>' + (condition === true && '<div>hello</div>') + '</div>');
-_.html('<div>' + (!condition && '<div>hello</div>') + '</div>');
+_.html('<div>' + _.render(condition && _.html('<span>hello</span>')) + '</div>');
+_.html('<div>' + (condition === true ? '<span>hello ' + _.render(name) + '</span>' : '') + '</div>');
+_.html('<div>' + (condition === true ? '<div>hello</div>' : '') + '</div>');
+_.html('<div>' + (!condition ? '<div>hello</div>' : '') + '</div>');
 {
 	const node = _.html('<span>hello</span>');
 	_.html('<div><div>' + _.render(node) + '</div></div>');

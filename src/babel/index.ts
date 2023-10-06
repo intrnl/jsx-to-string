@@ -408,6 +408,19 @@ export default declare<PluginOptions>((_api, options) => {
 		}
 	};
 
+	const BINARY_OPERATORS = new Set<t.BinaryExpression['operator']>([
+		'!=',
+		'!==',
+		'==',
+		'===',
+		'>',
+		'>=',
+		'<',
+		'<=',
+		'in',
+		'instanceof',
+	]);
+
 	const renderChildren = (path: NodePath<t.JSXElement | t.JSXFragment>) => {
 		const children = path.get('children');
 
@@ -517,13 +530,14 @@ export default declare<PluginOptions>((_api, options) => {
 				const $expression = expression as NodePath<t.LogicalExpression>;
 
 				const operator = $expression.node.operator;
+				const leftNode = $expression.node.left;
 
 				const right = $expression.get('right');
 				const rightType = right.type;
 
 				let alteredRight: t.Expression | undefined;
 
-				if (operator === '&&') {
+				if (operator === '&&' && isSupportedLogicalExpression(leftNode)) {
 					if (rightType === 'JSXElement' || rightType === 'JSXFragment') {
 						const $right = right as NodePath<t.JSXElement | t.JSXFragment>;
 						alteredRight = handleJSXTransform($right);
@@ -540,7 +554,7 @@ export default declare<PluginOptions>((_api, options) => {
 				}
 
 				if (alteredRight) {
-					expr(t.logicalExpression('&&', $expression.node.left, alteredRight));
+					expr(t.conditionalExpression(leftNode, alteredRight, t.stringLiteral('')))
 
 					continue;
 				}
@@ -667,4 +681,31 @@ const getAttributeName = (node: t.JSXIdentifier | t.JSXNamespacedName): string =
 	}
 
 	return node.name;
+};
+
+const isSupportedLogicalExpression = (node: t.Expression): boolean => {
+	const type = node.type;
+
+	if (type === 'UnaryExpression') {
+		return node.operator === '!';
+	}
+
+	if (type === 'BinaryExpression') {
+		const operator = node.operator;
+
+		return (
+			operator === '==' ||
+			operator === '===' ||
+			operator === '!=' ||
+			operator === '!==' ||
+			operator === '<' ||
+			operator === '<=' ||
+			operator === '>' ||
+			operator === '>=' ||
+			operator === 'in' ||
+			operator === 'instanceof'
+		);
+	}
+
+	return false;
 };
