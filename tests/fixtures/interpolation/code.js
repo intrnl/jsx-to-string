@@ -24,6 +24,10 @@
 
 <div>{bool ? <>hello</> : <>world</>}</div>;
 
+<div>{bool === true && <div>hello</div>}</div>;
+
+<div>{!bool && <div>hello</div>}</div>;
+
 {
 	const node = <span>hello</span>;
 
