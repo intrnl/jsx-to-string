@@ -1,7 +1,5 @@
 // @babel/types doesn't export `cleanJSXElementLiteralChild`
 
-import * as t from '@babel/types';
-
 const SPLIT_RE = /\r\n|\n|\r/;
 
 export const cleanJSXText = (text: string) => {
