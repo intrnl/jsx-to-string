@@ -513,6 +513,37 @@ export default declare<PluginOptions>((_api, options) => {
 
 					continue;
 				}
+			} else if (exprtype === 'LogicalExpression') {
+				const $expression = expression as NodePath<t.LogicalExpression>;
+
+				const operator = $expression.node.operator;
+
+				const right = $expression.get('right');
+				const rightType = right.type;
+
+				let alteredRight: t.Expression | undefined;
+
+				if (operator === '&&') {
+					if (rightType === 'JSXElement' || rightType === 'JSXFragment') {
+						const $right = right as NodePath<t.JSXElement | t.JSXFragment>;
+						alteredRight = handleJSXTransform($right);
+					} else {
+						const evaluation = right.evaluate();
+
+						if (evaluation.confident) {
+							const val = evaluation.value;
+							const str = runtime.render(val);
+
+							alteredRight = t.stringLiteral(str);
+						}
+					}
+				}
+
+				if (alteredRight) {
+					expr(t.logicalExpression('&&', $expression.node.left, alteredRight));
+
+					continue;
+				}
 			}
 
 			const evaluation = expression.evaluate();
