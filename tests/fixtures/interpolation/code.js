@@ -23,3 +23,10 @@
 <div>{bool ? <span>hello</span> : <strong>world</strong>}</div>;
 
 <div>{bool ? <>hello</> : <>world</>}</div>;
+
+const node = <span>hello</span>;
+
+<div>
+	<div>{node}</div>
+	<div>{node}</div>
+</div>;

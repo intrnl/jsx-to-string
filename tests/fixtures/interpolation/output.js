@@ -18,3 +18,5 @@ _.html('<div>hello world</div>');
 _.html('<div>' + _.render(bool ? 'hello' : 'world') + '</div>');
 _.html('<div>' + _.render(bool ? _.html('<span>hello</span>') : _.html('<strong>world</strong>')) + '</div>');
 _.html('<div>' + _.render(bool ? _.html('hello') : _.html('world')) + '</div>');
+const node = _.html('<span>hello</span>');
+_.html('<div><div>' + _.render(node) + '</div><div>' + _.render(node) + '</div></div>');
