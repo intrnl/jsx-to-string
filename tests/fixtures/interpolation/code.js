@@ -24,9 +24,19 @@
 
 <div>{bool ? <>hello</> : <>world</>}</div>;
 
-const node = <span>hello</span>;
+{
+	const node = <span>hello</span>;
 
-<div>
-	<div>{node}</div>
-	<div>{node}</div>
-</div>;
+	<div>
+		<div>{node}</div>
+	</div>;
+}
+
+{
+	const node = <span>hello</span>;
+
+	<div>
+		<div>{node}</div>
+		<div>{node}</div>
+	</div>;
+}
