@@ -184,3 +184,4 @@ _.html('<input data-foo=&#34;>');
 _.html('<input data-foo="\'">');
 _.html('<input value= readonly>');
 _.html('<input style=background:red;font:inherit>');
+_.html('<input' + _.attr('value', value) + ' readonly disabled>');
