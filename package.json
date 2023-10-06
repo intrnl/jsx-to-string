@@ -31,7 +31,7 @@
 	},
 	"scripts": {
 		"fmt": "prettier --cache --write .",
-		"build": "tsc",
+		"build": "rm -r dist; tsc",
 		"prepublishOnly": "pnpm run build"
 	},
 	"dependencies": {
