@@ -10,6 +10,8 @@
 
 <div>{null}</div>;
 
+<div>{value}</div>;
+
 <div>{{ foo: 123 }}</div>;
 
 <div>{{ foo: foo }}</div>;
@@ -17,6 +19,8 @@
 <div>{<span>hello world</span>}</div>;
 
 <div>{<>hello world</>}</div>;
+
+<div>{bool ? consequent : alternate}</div>;
 
 <div>{bool ? 'hello' : 'world'}</div>;
 

@@ -5,6 +5,7 @@ _.html('<div>1</div>');
 _.html('<div></div>');
 _.html('<div></div>');
 _.html('<div></div>');
+_.html('<div>' + _.render(value) + '</div>');
 _.html('<div>[object Object]</div>');
 _.html(
 	'<div>' +
@@ -15,6 +16,7 @@ _.html(
 );
 _.html('<div><span>hello world</span></div>');
 _.html('<div>hello world</div>');
+_.html('<div>' + _.render(bool ? consequent : alternate) + '</div>');
 _.html('<div>' + (bool ? 'hello' : 'world') + '</div>');
 _.html('<div>' + (bool ? '<span>hello</span>' : '<strong>world</strong>') + '</div>');
 _.html('<div>' + (bool ? 'hello' : 'world') + '</div>');
