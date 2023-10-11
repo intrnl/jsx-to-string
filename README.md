@@ -37,9 +37,9 @@ import * as _ from '@intrnl/jsx-to-string/runtime';
 
 const Card = ({ title, children }) => {
 	return _.html(
-		'<div class="card"><div class="card__title">' +
+		'<div class=card><div class=card__title>' +
 			_.render(title) +
-			'</div><div class="card__body">' +
+			'</div><div class=card__body>' +
 			_.render(children) +
 			'</div></div>',
 	);
@@ -59,7 +59,7 @@ const App = () => {
 const result = _.html(_.render(App({})));
 
 result.value;
-// '<h1>Hello!</h1><div class="card"><div class="card__title"> ...'
+// '<h1>Hello!</h1><div class=card><div class=card__title>Card title</div> ...'
 ```
 
 With most of the JSX being turned into string concatenations, it's super fast. Components are turned into eager function calls, and the returned JSX values can be used as is without having to call `render` or `renderToString` on it.
