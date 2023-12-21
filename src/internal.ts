@@ -1,9 +1,9 @@
 import type * as csstype from 'csstype';
 
-import type { TrustedHTML, JSXNode } from './types.js';
+import type { JSXNode } from './types.js';
 
 export namespace JSXInternal {
-	export type Element = TrustedHTML;
+	export type Element = JSXNode;
 
 	export interface ElementAttributesProperty {}
 
@@ -191,7 +191,6 @@ export namespace JSXInternal {
 	/** Contains additional element attributes that are necessary for JSX */
 	export interface JSXAttributes {
 		children?: JSXNode;
-		innerHTML?: string;
 	}
 
 	/** ARIA attributes applicable to any element */
