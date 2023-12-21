@@ -1,9 +1,9 @@
 import type * as csstype from 'csstype';
 
-import type { JSXNode } from './types.js';
+import type { JSXNode, TrustedHTML } from './types.js';
 
 export namespace JSXInternal {
-	export type Element = JSXNode;
+	export type Element = TrustedHTML;
 
 	export interface ElementAttributesProperty {}
 
