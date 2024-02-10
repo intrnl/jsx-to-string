@@ -475,57 +475,79 @@ export default declare<PluginOptions>((_api, options) => {
 				continue;
 			} else if (exprtype === 'ConditionalExpression') {
 				const $expression = expression as NodePath<t.ConditionalExpression>;
+				const conditionals: NodePath<t.ConditionalExpression>[] = [];
 
-				const consequent = $expression.get('consequent');
-				const alternate = $expression.get('alternate');
+				{
+					let curr: NodePath<t.Expression> | undefined = $expression;
 
-				const consType = consequent.type;
-				const altType = alternate.type;
+					while (curr && curr.type === 'ConditionalExpression') {
+						const path = curr as NodePath<t.ConditionalExpression>;
 
-				let alteredConsequent: t.Expression | undefined;
-				let alteredAlternate: t.Expression | undefined;
-
-				if (consType === 'JSXElement' || consType === 'JSXFragment') {
-					const $consequent = consequent as NodePath<t.JSXElement | t.JSXFragment>;
-					alteredConsequent = handleJSXTransform($consequent);
-				} else {
-					const evaluation = consequent.evaluate();
-
-					if (evaluation.confident) {
-						const val = evaluation.value;
-						const str = runtime.render(val);
-
-						alteredConsequent = t.stringLiteral(str);
+						conditionals.push(path);
+						curr = path.get('alternate');
 					}
 				}
 
-				if (altType === 'JSXElement' || altType === 'JSXFragment') {
-					const $alternate = alternate as NodePath<t.JSXElement | t.JSXFragment>;
-					alteredAlternate = handleJSXTransform($alternate);
-				} else {
-					const evaluation = alternate.evaluate();
+				const len = conditionals.length;
+				for (let idx = len - 1; idx >= 0; idx--) {
+					const last = idx === len - 1;
+					const cond = conditionals[idx];
 
-					if (evaluation.confident) {
-						const val = evaluation.value;
-						const str = runtime.render(val);
+					{
+						const consequent = cond.get('consequent');
+						const type = consequent.type;
 
-						alteredAlternate = t.stringLiteral(str);
-					}
-				}
+						let altered: t.Expression | undefined;
 
-				if (alteredConsequent || alteredAlternate) {
-					expr(
-						t.conditionalExpression(
-							$expression.node.test,
-							alteredConsequent ||
+						if (type === 'JSXElement' || type === 'JSXFragment') {
+							const $consequent = consequent as NodePath<t.JSXElement | t.JSXFragment>;
+							altered = handleJSXTransform($consequent);
+						} else {
+							const evaluation = consequent.evaluate();
+
+							if (evaluation.confident) {
+								const val = evaluation.value;
+								const str = runtime.render(val);
+
+								altered = t.stringLiteral(str);
+							}
+						}
+
+						consequent.replaceWith(
+							altered ||
 								t.callExpression(t.memberExpression(importIdent!, t.identifier('render')), [consequent.node]),
-							alteredAlternate ||
-								t.callExpression(t.memberExpression(importIdent!, t.identifier('render')), [alternate.node]),
-						),
-					);
+						);
+					}
 
-					continue;
+					if (last) {
+						const alternate = cond.get('alternate');
+						const type = alternate.type;
+
+						let altered: t.Expression | undefined;
+
+						if (type === 'JSXElement' || type === 'JSXFragment') {
+							const $alternate = alternate as NodePath<t.JSXElement | t.JSXFragment>;
+							altered = handleJSXTransform($alternate);
+						} else {
+							const evaluation = alternate.evaluate();
+
+							if (evaluation.confident) {
+								const val = evaluation.value;
+								const str = runtime.render(val);
+
+								altered = t.stringLiteral(str);
+							}
+						}
+
+						alternate.replaceWith(
+							altered ||
+								t.callExpression(t.memberExpression(importIdent!, t.identifier('render')), [alternate.node]),
+						);
+					}
 				}
+
+				expr($expression.node);
+				continue;
 			} else if (exprtype === 'LogicalExpression') {
 				const $expression = expression as NodePath<t.LogicalExpression>;
 

@@ -56,6 +56,8 @@
 
 <div>{bool ? <>hello {name}</> : <>world</>}</div>;
 
+<div>{foo ? 1 : bar ? 2 : baz ? 3 : 4}</div>;
+
 <div>{condition && expr}</div>;
 
 <div>{condition && <span>hello</span>}</div>;

@@ -16,7 +16,7 @@ import * as _ from '@intrnl/jsx-to-string/runtime';
 );
 /*#__PURE__*/ _.html('<div><span>hello world</span></div>');
 /*#__PURE__*/ _.html('<div>hello world</div>');
-/*#__PURE__*/ _.html('<div>' + _.render(bool ? consequent : alternate) + '</div>');
+/*#__PURE__*/ _.html('<div>' + (bool ? _.render(consequent) : _.render(alternate)) + '</div>');
 /*#__PURE__*/ _.html('<div>' + (bool ? 'hello' : 'world') + '</div>');
 /*#__PURE__*/ _.html('<div>' + (bool ? '<span>hello</span>' : '<strong>world</strong>') + '</div>');
 /*#__PURE__*/ _.html('<div>' + (bool ? 'hello' : 'world') + '</div>');
@@ -36,6 +36,7 @@ import * as _ from '@intrnl/jsx-to-string/runtime';
 	'<div>' + (bool ? '<span>hello ' + _.render(name) + '</span>' : '<strong>world</strong>') + '</div>',
 );
 /*#__PURE__*/ _.html('<div>' + (bool ? 'hello ' + _.render(name) : 'world') + '</div>');
+/*#__PURE__*/ _.html('<div>' + (foo ? '1' : bar ? '2' : baz ? '3' : '4') + '</div>');
 /*#__PURE__*/ _.html('<div>' + _.render(condition && expr) + '</div>');
 /*#__PURE__*/ _.html('<div>' + _.render(condition && /*#__PURE__*/ _.html('<span>hello</span>')) + '</div>');
 /*#__PURE__*/ _.html(
