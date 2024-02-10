@@ -2,7 +2,7 @@
 	"type": "module",
 	"name": "@intrnl/jsx-to-string",
 	"description": "Babel plugin for transforming JSX to HTML string equivalent",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"author": "intrnl",
 	"license": "MIT",
 	"repository": {
