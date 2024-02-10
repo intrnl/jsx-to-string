@@ -554,7 +554,7 @@ export default declare<PluginOptions>((_api, options) => {
 				}
 
 				if (alteredRight) {
-					expr(t.conditionalExpression(leftNode, alteredRight, t.stringLiteral('')))
+					expr(t.conditionalExpression(leftNode, alteredRight, t.stringLiteral('')));
 
 					continue;
 				}

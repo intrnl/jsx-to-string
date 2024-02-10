@@ -90,4 +90,4 @@
 
 <input style={{ color: undefined, background: 'red', font: 'inherit' }} />;
 
-<input value={value} readonly disabled />
+<input value={value} readonly disabled />;
