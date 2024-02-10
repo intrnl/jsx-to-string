@@ -1,166 +1,166 @@
 import * as _ from '@intrnl/jsx-to-string/runtime';
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			children: 'Hello world',
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
-			children: _.html('<div>Hello world</div>'),
+			children: /*#__PURE__*/ _.html('<div>Hello world</div>'),
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
-			children: _.html('<div>Hello</div> <div>World</div>'),
+			children: /*#__PURE__*/ _.html('<div>Hello</div> <div>World</div>'),
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
-			children: ['foo ', _.html('<div>bar</div> baz')],
+			children: ['foo ', /*#__PURE__*/ _.html('<div>bar</div> baz')],
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
-			children: ['foo ', _.html('<div>bar</div> baz <div>buzz</div>')],
+			children: ['foo ', /*#__PURE__*/ _.html('<div>bar</div> baz <div>buzz</div>')],
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
-			children: ['foo ', _.html('<div>bar</div>')],
+			children: ['foo ', /*#__PURE__*/ _.html('<div>bar</div>')],
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
-			children: ['foo ', _.html('<div>bar</div> <div>baz</div>')],
+			children: ['foo ', /*#__PURE__*/ _.html('<div>bar</div> <div>baz</div>')],
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
-			children: _.html('<div>bar</div> baz'),
+			children: /*#__PURE__*/ _.html('<div>bar</div> baz'),
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
-			children: _.html('<div>foo</div> <div>bar</div> baz'),
+			children: /*#__PURE__*/ _.html('<div>foo</div> <div>bar</div> baz'),
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			children: foo,
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			children: ['foo ', text],
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			children: [text, ' bar'],
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			children: ['foo ', text, ' bar'],
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
-			children: _.html('<div>foo</div> ' + _.render(text)),
+			children: /*#__PURE__*/ _.html('<div>foo</div> ' + _.render(text)),
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
-			children: [text, ' ', _.html('<div>bar</div>')],
+			children: [text, ' ', /*#__PURE__*/ _.html('<div>bar</div>')],
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
-			children: _.html('<div>foo</div> ' + _.render(text) + ' <div>baz</div>'),
+			children: /*#__PURE__*/ _.html('<div>foo</div> ' + _.render(text) + ' <div>baz</div>'),
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			value: 'John',
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			value: value,
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			value: true,
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			'data-foo': 'Bar',
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			'data-foo': foo,
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			'data-foo': true,
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			...props,
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			...before,
@@ -168,7 +168,7 @@ _.html(
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			...before,
@@ -176,7 +176,7 @@ _.html(
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			...before,
@@ -184,7 +184,7 @@ _.html(
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			value: 'John',
@@ -192,7 +192,7 @@ _.html(
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			value: value,
@@ -200,7 +200,7 @@ _.html(
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			value: true,
@@ -208,7 +208,7 @@ _.html(
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			...before,
@@ -217,7 +217,7 @@ _.html(
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			...before,
@@ -226,7 +226,7 @@ _.html(
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			...before,
@@ -235,7 +235,7 @@ _.html(
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	'<div>' +
 		_.render(
 			Link({
@@ -272,24 +272,24 @@ _.html(
 		) +
 		'</div>',
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			children: ['hello ', ...spread, ' world'],
 		}),
 	),
 );
-_.html(
+/*#__PURE__*/ _.html(
 	_.render(
 		Component({
 			children: [
 				'hello ',
 				...spread,
 				' ',
-				_.html('<div></div> text<div></div> '),
+				/*#__PURE__*/ _.html('<div></div> text<div></div> '),
 				...spread,
 				' ',
-				_.html('<div></div> text <div></div>'),
+				/*#__PURE__*/ _.html('<div></div> text <div></div>'),
 			],
 		}),
 	),

@@ -596,7 +596,13 @@ export default declare<PluginOptions>((_api, options) => {
 
 	const handleJSXVisit = (path: NodePath<t.JSXElement | t.JSXFragment>) => {
 		const expr = handleJSXTransform(path);
-		path.replaceWith(t.callExpression(t.memberExpression(importIdent!, t.identifier('html')), [expr]));
+		path.replaceWith(
+			t.addComment(
+				t.callExpression(t.memberExpression(importIdent!, t.identifier('html')), [expr]),
+				'leading',
+				'#__PURE__',
+			),
+		);
 	};
 
 	return {
